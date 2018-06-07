@@ -9,6 +9,9 @@ config_file = "config"
 headshape_file = "hs_file"
 raw_file = "c,rfhp0.1Hz"
 
+#subjs = ["VP1"]
+#runs = ["1"]
+
 for sub in subjs:
     for run in runs:
         rawdir = "{a}raw/{b}/Run{c}/".format(a=root_dir,b=sub,c=run)
@@ -18,7 +21,7 @@ for sub in subjs:
         temp = [raw.info["ch_names"][x] for x in picks]
         raw.drop_channels(temp)
 
-        filt = raw.filter(h_freq=70,l_freq=1,n_jobs=4)
+        filt = raw.filter(h_freq=20,l_freq=1,n_jobs=1)
         filt = filt.notch_filter([50])
         picks = mne.pick_types(raw.info,meg=True)
         bcf = BadChannelFind(picks,thresh=0.6,twin_len=3)

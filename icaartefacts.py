@@ -14,27 +14,25 @@ for sub in subjs:
         f = "{a}{b}_{c}-epo.fif".format(a=root_dir,b=sub,c=run)
         epos.append(mne.read_epochs(f))
         
-eog_template = (9,2)
-ekg_template = (9,0)
+eog_template = (0,4)
+ekg_template = (0,11)
 
 fig_template, fig_detected = corrmap(icas, template=eog_template, show=False,
-                                     label="eog", threshold=0.8, ch_type='mag')
+                                     label="eog", threshold=0.8, ch_type='mag',
+                                     plot=False)
 
 fig_template, fig_detected = corrmap(icas, template=ekg_template, show=False,
-                                     label="ekg", threshold=0.7, ch_type='mag')
+                                     label="ekg", threshold=0.7, ch_type='mag',
+                                     plot=False)
 
-for i_idx,i in enumerate(icas):
-    exclude = i.labels_["eog"].copy()
-    exclude.extend(i.labels_["ekg"].copy())
-    i.apply(epos[i_idx], exclude=exclude)
-    epos[i_idx].save(epos[i_idx].filename[:-7]+"ica-epo.fif")
+# remove components
+#for i_idx,i in enumerate(icas):
+#    exclude = i.labels_["eog"].copy()
+#    exclude.extend(i.labels_["ekg"].copy())
+#    i.apply(epos[i_idx], exclude=exclude)
+#    epos[i_idx].save(epos[i_idx].filename[:-7]+"ica-epo.fif")
     
-#for sub in subjs:
-#    epos = []
-#    for run in runs:
-#        f = "{a}{b}_{c}-ica-epo.fif".format(a=root_dir,b=sub,c=run)
-#        epos.append(mne.read_epochs(f))
-#    epo = mne.concatenate_epochs(epos)
-#    epo.save("{a}{b}_{c]-epo.fif".format(a=root_dir,b=sub,c=run))
+# use components to make artificial EOG, EKG channels
+
         
     

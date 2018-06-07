@@ -16,9 +16,9 @@ fmin=7
 fmax=13
 frequencies = np.linspace(fmin, fmax, fmax-fmin+1)
 
-subjs = ["VP1"]
-runs = ["1"]
-sides = ["links"]
+#subjs = ["VP1"]
+#runs = ["1"]
+#sides = ["links"]
 
 #all_labels = mne.read_labels_from_annot("fsaverage",subjects_dir=subjects_dir)
 #for h in ["lh","rh"]:
@@ -46,15 +46,7 @@ for sub in subjs:
                            frequencies=frequencies)
             
             filters = make_dics(e.info, fwd, csd)
-            for event in range(len(e)):
-                event_csd = csd_morlet(e[event], tmin=0.8, tmax=1.8,
-                                       frequencies=frequencies)
-                stc = apply_dics_csd(event_csd,filters)
-                stc[0].save("{a}stcs/{b}_{c}_{d}_{e}".format(
-                        a=root_dir,b=sub,c=run,d=side,e=event))
+            stc = apply_dics_csd(csd,filters)
 
-
-                    
-                
-    
-                
+            stc[0].save("{a}stcs/{b}_{c}_{d}".format(
+                    a=root_dir,b=sub,c=run,d=side))

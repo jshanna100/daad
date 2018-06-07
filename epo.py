@@ -42,7 +42,7 @@ for sub in subjs:
         epo = mne.Epochs(raw,new_trigs,tmin=-1,tmax=2,baseline=(None,0))
         epo.load_data()
         epo.resample(200)
-        epo = epo.interpolate_bads()
+#        epo = epo.interpolate_bads()
         epo.save("{a}{b}_{c}-epo.fif".format(a=root_dir,b=sub,c=run))
     
     

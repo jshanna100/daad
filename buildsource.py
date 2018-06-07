@@ -1,6 +1,7 @@
 import mne
-subjects_dir = "/home/jeff/freesurfer/subjects"
-proc_dir = "/home/jeff/daad/proc/"
+#subjects_dir = "/home/jeff/freesurfer/subjects"
+subjects_dir = "../subjects"
+proc_dir = "../proc/"
 subject = "fsaverage"
 
 
