@@ -21,7 +21,7 @@ for sub in subjs:
         temp = [raw.info["ch_names"][x] for x in picks]
         raw.drop_channels(temp)
 
-        filt = raw.filter(h_freq=20,l_freq=1,n_jobs=1)
+        filt = raw.filter(h_freq=20,l_freq=1,n_jobs=4)
         filt = filt.notch_filter([50])
         picks = mne.pick_types(raw.info,meg=True)
         bcf = BadChannelFind(picks,thresh=0.6,twin_len=3)

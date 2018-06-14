@@ -12,18 +12,17 @@ for sub in subjs:
         f = "{a}{b}_{c}-ica.fif".format(a=root_dir,b=sub,c=run)
         icas.append(mne.preprocessing.read_ica(f))
         f = "{a}{b}_{c}-epo.fif".format(a=root_dir,b=sub,c=run)
-        epos.append(mne.read_epochs(f))
+        epos.append(mne.read_epochs(f).interpolate_bads())
         
-eog_template = (0,4)
-ekg_template = (0,11)
+eog_template = (9,2)
+ekg_template = (9,0)
 
-fig_template, fig_detected = corrmap(icas, template=eog_template, show=False,
-                                     label="eog", threshold=0.8, ch_type='mag',
-                                     plot=False)
+corrmap(icas, template=eog_template, show=False,label="eog", 
+            threshold=0.9, ch_type='mag',plot=False)
 
-fig_template, fig_detected = corrmap(icas, template=ekg_template, show=False,
-                                     label="ekg", threshold=0.7, ch_type='mag',
-                                     plot=False)
+#fig_template, fig_detected = corrmap(icas, template=ekg_template, show=False,
+#                                     label="ekg", threshold=0.7, ch_type='mag',
+#                                     plot=False)
 
 # remove components
 #for i_idx,i in enumerate(icas):
