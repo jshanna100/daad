@@ -33,7 +33,7 @@ sides = ["links"]
 for sub in subjs:
     stc_runs = []
     for run in runs:
-        epo_name = "{a}{b}_{c}-ica-epo.fif".format(a=root_dir,b=sub,c=run)        
+        epo_name = "{a}{b}_{c}_a-epo.fif".format(a=root_dir,b=sub,c=run)        
         fwd_name = "{a}{b}_{c}-fwd.fif".format(a=root_dir,b=sub,c=run)
         epo = mne.read_epochs(epo_name)
         epo = mne.epochs.combine_event_ids(epo,trig_inds[0],{"links":1})

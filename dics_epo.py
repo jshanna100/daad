@@ -5,6 +5,7 @@ import numpy as np
 
 root_dir = "../proc/"
 subjs = ["VP1","VP2","VP3","VP4","VP5","VP6","VP7"]
+subjs = ["VP2","VP3","VP4","VP5","VP6","VP7"]
 runs = ["1","2","3"]
 trig_inds = [["143","128","129","130"],["131","132","133","134"]]
 sides = ["links","rechts"]
@@ -33,8 +34,8 @@ frequencies = np.linspace(fmin, fmax, fmax-fmin+1)
 for sub in subjs:
     stc_runs = []
     for run in runs:
-        epo_name = "{a}{b}_{c}-ica-epo.fif".format(a=root_dir,b=sub,c=run)        
-        fwd_name = "{a}{b}_{c}-fwd.fif".format(a=root_dir,b=sub,c=run)
+        epo_name = "{a}{b}_{c}_a-epo.fif".format(a=root_dir,b=sub,c=run)        
+        fwd_name = "{a}{b}_{c}_a-fwd.fif".format(a=root_dir,b=sub,c=run)
         epo = mne.read_epochs(epo_name)
         epo = mne.epochs.combine_event_ids(epo,trig_inds[0],{"links":1})
         epo = mne.epochs.combine_event_ids(epo,trig_inds[1],{"rechts":2})

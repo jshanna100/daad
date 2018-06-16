@@ -6,9 +6,9 @@ sides = ["links","rechts"]
 hemis = ["lh","rh"]
 subjects_dir = "../subjects/"
 
-sub = "VP2"
+sub = "VP1"
 hemis = ["lh"]
-runs = ["3"]
+#runs = ["1"]
 freq = 8
 
 fig_idx = 0
