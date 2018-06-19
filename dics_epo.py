@@ -4,8 +4,6 @@ from mne.beamformer import make_dics,apply_dics_csd
 import numpy as np
 
 root_dir = "../proc/"
-subjs = ["VP1","VP2","VP3","VP4","VP5","VP6","VP7"]
-subjs = ["VP2","VP3","VP4","VP5","VP6","VP7"]
 runs = ["1","2","3"]
 trig_inds = [["143","128","129","130"],["131","132","133","134"]]
 sides = ["links","rechts"]
@@ -17,6 +15,14 @@ fmin=7
 fmax=13
 frequencies = np.linspace(fmin, fmax, fmax-fmin+1)
 
+typ="aic"
+
+if typ=="a":
+    subjs = ["VP2","VP3","VP4","VP5","VP7"] # not enough trials in VP1, VP6
+else:
+    subjs = ["VP1","VP2","VP3","VP4","VP5","VP6","VP7"]
+
+#subjs = ["VP7"]
 #subjs = ["VP1"]
 #runs = ["1"]
 #sides = ["links"]
@@ -34,8 +40,8 @@ frequencies = np.linspace(fmin, fmax, fmax-fmin+1)
 for sub in subjs:
     stc_runs = []
     for run in runs:
-        epo_name = "{a}{b}_{c}_a-epo.fif".format(a=root_dir,b=sub,c=run)        
-        fwd_name = "{a}{b}_{c}_a-fwd.fif".format(a=root_dir,b=sub,c=run)
+        epo_name = "{a}{b}_{c}_{d}-epo.fif".format(a=root_dir,b=sub,c=run,d=typ)        
+        fwd_name = "{a}{b}_{c}_{d}-fwd.fif".format(a=root_dir,b=sub,c=run,d=typ)
         epo = mne.read_epochs(epo_name)
         epo = mne.epochs.combine_event_ids(epo,trig_inds[0],{"links":1})
         epo = mne.epochs.combine_event_ids(epo,trig_inds[1],{"rechts":2})
@@ -49,5 +55,5 @@ for sub in subjs:
             filters = make_dics(e.info, fwd, csd)
             stc = apply_dics_csd(csd,filters)
 
-            stc[0].save("{a}stcs/{b}_{c}_{d}".format(
-                    a=root_dir,b=sub,c=run,d=side))
+            stc[0].save("{a}stcs/{b}_{c}_{d}_{e}".format(
+                    a=root_dir,b=sub,c=run,d=side,e=typ))

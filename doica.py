@@ -8,10 +8,9 @@ runs = ["1","2","3"]
 #runs = ["1"]
 
 for sub in subjs:
-    for run in runs:
-        f = "{a}{b}_{c}-epo.fif".format(a=root_dir,b=sub,c=run)
-        epo = mne.read_epochs(f).interpolate_bads()
-        ica = mne.preprocessing.ICA(n_components=32)
-        ica.fit(epo)
-        ica.save("{a}{b}_{c}-ica.fif".format(a=root_dir,b=sub,c=run))
+    f = "{a}{b}-epo.fif".format(a=root_dir,b=sub)
+    epo = mne.read_epochs(f).interpolate_bads()
+    ica = mne.preprocessing.ICA(n_components=64)
+    ica.fit(epo)
+    ica.save("{a}{b}-ica.fif".format(a=root_dir,b=sub))
         
